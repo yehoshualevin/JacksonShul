@@ -97,5 +97,17 @@ namespace JacksonShul.Data
                 return context.Pledges.Where(p => p.MemberId == memberId).ToList();
             }
         }
+        public List<Member> GetMembersPlus()
+        {
+            using (var context = new ShulDataContext())
+            {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<Member>(m => m.Payments);
+                loadOptions.LoadWith<Member>(m => m.Pledges);
+                loadOptions.LoadWith<Payment>(p => p.Expense);
+                context.LoadOptions = loadOptions;
+                return context.Members.ToList();
+            }
+        }
     }
 }

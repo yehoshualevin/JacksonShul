@@ -32,7 +32,22 @@ namespace JacksonShul.Controllers
             TempData["Message"] = $"{expense.Name} added to expenses";
             return RedirectToAction("index");
         }
-        public ActionResult ViewMembers()
+        public ActionResult ViewAllByMembers()
+        {
+            FinancialRepository fr = new FinancialRepository();
+            List<Member> members = fr.GetMembersPlus();
+            IEnumerable<MembersPlus> membersPlus = members.Select(m => new MembersPlus
+            {
+                Id = m.Id,
+                FirstName = m.FirstName,
+                LastName = m.LastName,
+                Cell = m.Cell,
+                Email = m.Email,
+                Pledges = m.Pledges
+            });
+            return View(membersPlus);
+        }
+        public ActionResult ViewAllByExpenses()
         {
             return View();
         }

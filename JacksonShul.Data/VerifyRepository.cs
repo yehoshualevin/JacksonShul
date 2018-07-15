@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JacksonShul.Data
 {
-    public class MembersRepository
+    public class VerifyRepository
     {
         public void SignUp(Member member, string password)
         {

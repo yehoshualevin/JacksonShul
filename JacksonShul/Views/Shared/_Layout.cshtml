@@ -21,6 +21,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("View All By Members", "ViewAllByMembers", "Admin")</li>
                     @if (ViewBag.name != "")
                     {
                         <li>@Html.ActionLink("View Shul Expenses", "ViewShulExpenses", "Home")</li>

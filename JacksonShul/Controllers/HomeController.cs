@@ -28,7 +28,7 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult Signup(Member member,string password)
         {
-            var repo = new MembersRepository();
+            var repo = new VerifyRepository();
             repo.SignUp(member, password);
             TempData["Message"] = "You successfuly signed up!";
             return RedirectToAction("Index");
@@ -42,7 +42,7 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            var repo = new MembersRepository();
+            var repo = new VerifyRepository();
             var member = repo.Login(email, password);
             if (member == null)
             {
@@ -70,7 +70,7 @@ namespace JacksonShul.Controllers
 
         public ActionResult Donate(int expenseId,string expenseName)
         {
-            var repo = new MembersRepository();
+            var repo = new VerifyRepository();
             Member member = repo.GetByEmail(User.Identity.Name);
             if (member == null)
             {
@@ -96,7 +96,7 @@ namespace JacksonShul.Controllers
 
         public ActionResult Pledge(int expenseId,string expenseName)
         {
-            var repo = new MembersRepository();
+            var repo = new VerifyRepository();
             Member member = repo.GetByEmail(User.Identity.Name);
             if (member == null)
             {
@@ -139,13 +139,13 @@ namespace JacksonShul.Controllers
         {
             var fr = new FinancialRepository();
             Pledge pledge = fr.GetPledge(id);
-            decimal a = pledge.Amount;
-            return Json(a,JsonRequestBehavior.AllowGet);
+            decimal amount = pledge.Amount;
+            return Json(amount,JsonRequestBehavior.AllowGet);
         }
         
         public ActionResult ViewMyActivity()
         {
-            var repo = new MembersRepository();
+            var repo = new VerifyRepository();
             Member member = repo.GetByEmail(User.Identity.Name);
             if (member == null)
             {

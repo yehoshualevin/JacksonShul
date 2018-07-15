@@ -1,0 +1,13 @@
+﻿@model JacksonShul.Models.HomePageViewModel
+
+@if(!String.IsNullOrEmpty(@Model.Message)){
+<div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    @Model.Message
+</div>
+}
+<div class="jumbotron">
+    <h2>Welcome to the Jackson Shul Website!!! @ViewBag.foo</h2>
+    <br />
+    <p>Parshas Pinchas: Mincha 7:05. HDL"N 8:11 Mincha 8:14 Shacharis 8:35 Mincha 6:30, 7:50 Maariv 9:29</p>
+</div>

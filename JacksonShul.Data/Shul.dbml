@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="JacksonShul" Class="ShulDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=JacksonShul;Integrated Security=True" SettingsObjectName="JacksonShul.Data.Properties.Settings" SettingsPropertyName="JacksonShulConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Expenses" Member="Expenses">
+    <Type Name="Expense">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="Expense_Payment" Member="Payments" ThisKey="Id" OtherKey="ExpenseId" Type="Payment" />
+      <Association Name="Expense_Pledge" Member="Pledges" ThisKey="Id" OtherKey="ExpenseId" Type="Pledge" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Members" Member="Members">
+    <Type Name="Member">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Cell" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordSalt" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Member_Payment" Member="Payments" ThisKey="Id" OtherKey="MemberId" Type="Payment" />
+      <Association Name="Member_Pledge" Member="Pledges" ThisKey="Id" OtherKey="MemberId" Type="Pledge" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Payments" Member="Payments">
+    <Type Name="Payment">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpenseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Expense_Payment" Member="Expense" ThisKey="ExpenseId" OtherKey="Id" Type="Expense" IsForeignKey="true" />
+      <Association Name="Member_Payment" Member="Member" ThisKey="MemberId" OtherKey="Id" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pledges" Member="Pledges">
+    <Type Name="Pledge">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MemberId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpenseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Expense_Pledge" Member="Expense" ThisKey="ExpenseId" OtherKey="Id" Type="Expense" IsForeignKey="true" />
+      <Association Name="Member_Pledge" Member="Member" ThisKey="MemberId" OtherKey="Id" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

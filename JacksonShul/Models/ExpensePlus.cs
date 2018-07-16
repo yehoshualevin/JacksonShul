@@ -13,5 +13,6 @@ namespace JacksonShul.Models
         public decimal? Cost { get; set; }
         public DateTime Date { get; set; }
         public decimal TotalDonations { get; set; }
+        public decimal TotalPledges { get; set; }
     }
 }

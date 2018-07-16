@@ -65,12 +65,13 @@ namespace JacksonShul.Data
             }
         }
 
-        public List<Expense> GetExpensesWithPayments()
+        public List<Expense> GetExpensesWithPaps()
         {
             using (var context = new ShulDataContext())
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Expense>(e => e.Payments);
+                loadOptions.LoadWith<Expense>(e => e.Pledges);
                 context.LoadOptions = loadOptions;
                 return context.Expenses.ToList();
             }
@@ -97,17 +98,50 @@ namespace JacksonShul.Data
                 return context.Pledges.Where(p => p.MemberId == memberId).ToList();
             }
         }
-        public List<Member> GetMembersPlus()
+        public List<Member> GetMembers()
+        {
+            using (var context = new ShulDataContext())
+            {
+                return context.Members.ToList();
+            }
+        }
+        public Member GetMember(int id)
+        {
+            using (var context = new ShulDataContext())
+            {
+                return context.Members.FirstOrDefault(m => m.Id == id);
+            }
+        }
+        public List<Payment> GetAllPayments()
         {
             using (var context = new ShulDataContext())
             {
                 var loadOptions = new DataLoadOptions();
-                loadOptions.LoadWith<Member>(m => m.Payments);
-                loadOptions.LoadWith<Member>(m => m.Pledges);
                 loadOptions.LoadWith<Payment>(p => p.Expense);
                 context.LoadOptions = loadOptions;
-                return context.Members.ToList();
+                return context.Payments.ToList();
             }
         }
+        public List<Payment> GetPaymentsByExpenseId(int id)
+        {
+            using (var context = new ShulDataContext())
+            {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<Payment>(p => p.Member);
+                context.LoadOptions = loadOptions;
+                return context.Payments.Where(p => p.ExpenseId == id).ToList();
+            }
+        }
+        public List<Pledge> GetPledgesByExpenseId(int id)
+        {
+            using (var context = new ShulDataContext())
+            {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<Pledge>(p => p.Member);
+                context.LoadOptions = loadOptions;
+                return context.Pledges.Where(p => p.ExpenseId == id).ToList();
+            }
+        }
+
     }
 }

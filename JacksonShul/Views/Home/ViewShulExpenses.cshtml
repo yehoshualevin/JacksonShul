@@ -4,24 +4,25 @@
 <h1>Shul Expenses</h1>
 <table class="table table-bordered table-hover table-striped">
     <tr>
-        <th>Action</th>
+        <th>Donate</th>
+        <th>Pledge</th>
         <th>Expense</th>
         <th>Cost</th>
         <th>Donated</th>
+        <th>Pledged</th>
         <th>Date</th>
     </tr>
 
     @foreach (var expense in Model)
     {
-        <tr>
-            <td>
-                <a href="/home/donate?expenseid=@expense.Id&expensename=@expense.Name" class="btn btn-primary">Donate</a>
-                <a href="/home/pledge?expenseid=@expense.Id&expensename=@expense.Name" class="btn btn-success">Pledge</a>
-            </td>
-            <td>@expense.Name</td>
-            <td>@(expense.Cost.Value.ToString("C"))</td>
-            <td>@(expense.TotalDonations.ToString("C"))</td>
-            <td> @expense.Date.ToShortDateString()</td>
-        </tr>
+    <tr>
+        <td><a href="/home/donate?expenseid=@expense.Id&expensename=@expense.Name" class="btn btn-primary">Donate</a></td>
+        <td><a href="/home/pledge?expenseid=@expense.Id&expensename=@expense.Name" class="btn btn-success">Pledge</a></td>
+        <td>@expense.Name</td>
+        <td>@(expense.Cost != null ? expense.Cost.Value.ToString("C") : "")</td>
+        <td>@(expense.TotalDonations.ToString("C"))</td>
+        <td>@(expense.TotalPledges.ToString("C"))</td>
+        <td>@expense.Date.ToShortDateString()</td>
+    </tr>
     }
 </table>

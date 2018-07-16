@@ -157,7 +157,6 @@
     <Compile Include="LayoutDataAttribute.cs" />
     <Compile Include="Models\ExpensePlus.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
-    <Compile Include="Models\MembersPlus.cs" />
     <Compile Include="Models\PaymentsAndPledges.cs" />
     <Compile Include="Models\PaymentWithName.cs" />
     <Compile Include="Models\PledgeWithName.cs" />
@@ -212,7 +211,11 @@
     <Content Include="Views\Home\ViewShulExpenses.cshtml" />
     <Content Include="Views\Home\Donate.cshtml" />
     <Content Include="Views\Home\ViewMyActivity.cshtml" />
-    <Content Include="Views\Admin\ViewAllByMembers.cshtml" />
+    <Content Include="Views\Admin\ViewMembers.cshtml" />
+    <Content Include="Views\Admin\GetById.cshtml" />
+    <Content Include="Views\Admin\ViewExpenses.cshtml" />
+    <Content Include="Views\Admin\ViewDonations.cshtml" />
+    <Content Include="Views\Admin\ViewPledges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

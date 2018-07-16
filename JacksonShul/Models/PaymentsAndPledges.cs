@@ -11,5 +11,6 @@ namespace JacksonShul.Models
     {
         public IEnumerable<PaymentWithName> Payments { get; set; }
         public IEnumerable<PledgeWithName> Pledges { get; set; }
+        public Member Member { get; set; }
     }
 }

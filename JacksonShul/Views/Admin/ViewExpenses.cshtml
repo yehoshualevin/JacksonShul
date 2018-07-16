@@ -1,0 +1,26 @@
+﻿@using JacksonShul.Models
+@model IEnumerable<ExpensePlus>
+
+<h1>Shul Expenses</h1>
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>Donations</th>
+        <th>Pledges</th>
+        <th>Expense</th>
+        <th>Cost</th>
+        <th>Donated</th>
+        <th>Date</th>
+    </tr>
+
+    @foreach (var expense in Model)
+    {
+        <tr>
+            <td><a href="/admin/viewdonations?expenseid=@expense.Id&expensename=@expense.Name" >View Donations</a></td>
+            <td><a href="/admin/viewpledges?expenseid=@expense.Id&expensename=@expense.Name" >View Pledges</a></td>
+            <td>@expense.Name</td>
+            <td>@(expense.Cost != null ? expense.Cost.Value.ToString("C") : "")</td>
+            <td>@(expense.TotalDonations.ToString("C"))</td>
+            <td> @expense.Date.ToShortDateString()</td>
+        </tr>
+    }
+</table>

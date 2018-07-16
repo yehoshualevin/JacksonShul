@@ -4,19 +4,18 @@
         $("#partial").show();
         $("#complete").prop('checked', false);
         const pledgeId = $(this).data('pledge-id');
-        const tr = $(this).parent().parent()
+        const tr = $(this).parent().parent();
         const expenseName = tr.find('td:eq(1)').text();
         const amount = tr.find('td:eq(2)').text();
         var max = parseInt(amount.replace(/\D/g, ''), 10);
         $("#pledge-amount").text(amount);
         $("#expense-name").text(expenseName);
-        $("#update").data("modal-id", pledgeId)
-        $("#partial").data("max-num", max)
+        $("#update").data("modal-id", pledgeId);
+        $("#partial").data("max-num", max);
         $("#update").data("type", "update");
         $("#pledge-modal").modal();
-    })
+    });
 
-    let complete = false;
     $("#complete").on("change", function () {
         if (this.checked) {
             $("#partial").hide();
@@ -24,8 +23,8 @@
         } else {
             $("#partial").show();
             $("#update").data("type", "update");
-        } 
-    })
+        }
+    });
 
     $("#update").on("click", function () {
         const id = $(this).data('modal-id');
@@ -38,7 +37,7 @@
                 const thisPledgeNum = parseInt(thisPledge.replace(/\D/g, ''), 10);
                 const pledgeSumNum = parseInt(pledgeSum.replace(/\D/g, ''), 10);
                 const newSum = pledgeSumNum - thisPledgeNum;
-                const realSum = newSum/100
+                const realSum = newSum / 100;
                 const betterSum = '$' + realSum.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                 $("#pledge-sum").text(betterSum);
             });
@@ -54,11 +53,11 @@
                 const newSum = realSum - amountPaid;
                 const betterSum = '$' + newSum.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                 $("#pledge-sum").text(betterSum);
-            });   
-        }        
-        
+            });
+        }
+
         $("#pledge-modal").modal('hide');
-    })
+    });
     $("#complete").on('change', setButtonValidity);
     $("#amount").on('input', setButtonValidity);
 
@@ -67,16 +66,16 @@
         $("#update").prop('disabled', !isFormValid());
     }
 
-   
+
     function isFormValid() {
-        const complete = ($('#complete').is(":checked"));        
+        const complete = $('#complete').is(":checked");
         const amount = $("#amount").val();
         const max = $("#partial").data('max-num');
-       
-        return complete || (amount > 0 && amount < max/100);
-        
+
+        return complete || amount > 0 && amount < max / 100;
+
     }
-    
-})
+
+});
 
 

@@ -42,6 +42,8 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
+            AuthorizeAttribute authorize = new AuthorizeAttribute();
+            authorize.Roles = "admin";
             var repo = new VerifyRepository();
             var member = repo.Login(email, password);
             if (member == null)
@@ -52,22 +54,24 @@ namespace JacksonShul.Controllers
             FormsAuthentication.SetAuthCookie(email, true);
             return RedirectToAction("Index");
         }
+        [Authorize]
         public ActionResult ViewShulExpenses()
         {
             var repo = new FinancialRepository();            
             var fr = new FinancialRepository();
-            List<Expense> expenses = fr.GetExpensesWithPayments();
+            List<Expense> expenses = fr.GetExpensesWithPaps();
             IEnumerable<ExpensePlus> expensesPlus = expenses.Select(e => new ExpensePlus
             {
                 Id = e.Id,
                 Name = e.Name,
                 Cost = e.Cost,
                 TotalDonations = e.Payments.Sum(p => p.Amount),
+                TotalPledges = e.Pledges.Sum(p => p.Amount),
                 Date = e.Date
             });
             return View(expensesPlus);
         }
-
+        [Authorize]
         public ActionResult Donate(int expenseId,string expenseName)
         {
             var repo = new VerifyRepository();
@@ -86,14 +90,15 @@ namespace JacksonShul.Controllers
             };            
             return View(payment);
         }
+        [Authorize]
         [HttpPost]
         public ActionResult Donate(Payment payment)
         {
             var fr = new FinancialRepository();
             fr.AddPayment(payment);
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewShulExpenses");
         }
-
+        [Authorize]
         public ActionResult Pledge(int expenseId,string expenseName)
         {
             var repo = new VerifyRepository();
@@ -112,6 +117,7 @@ namespace JacksonShul.Controllers
             };
             return View("Donate",pledge);
         }
+        [Authorize]
         [HttpPost]
         public ActionResult Pledge(Pledge pledge)
         {
@@ -119,6 +125,7 @@ namespace JacksonShul.Controllers
             fr.AddPledge(pledge);
             return RedirectToAction("Index");
         }
+        [Authorize]
         [HttpPost]
         public ActionResult UpdatePledge(int amount,int id)
         {
@@ -128,6 +135,7 @@ namespace JacksonShul.Controllers
             decimal a = pledge.Amount;
             return Json(a, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         [HttpPost]
         public ActionResult DeletePledge(int id)
         {
@@ -135,6 +143,7 @@ namespace JacksonShul.Controllers
             fr.DeletePledge(id);
             return Json(id);
         }
+        [Authorize]
         public ActionResult GetPledge(int id)
         {
             var fr = new FinancialRepository();
@@ -142,7 +151,7 @@ namespace JacksonShul.Controllers
             decimal amount = pledge.Amount;
             return Json(amount,JsonRequestBehavior.AllowGet);
         }
-        
+        [Authorize]
         public ActionResult ViewMyActivity()
         {
             var repo = new VerifyRepository();

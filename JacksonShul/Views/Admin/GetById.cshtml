@@ -1,0 +1,88 @@
+﻿@using JacksonShul.Models
+@model PaymentsAndPledges
+
+<h4>Name: @Model.Member.FirstName @Model.Member.LastName </h4>
+<h4>Cell: @Model.Member.Cell</h4>
+<h4>Email: @Model.Member.Email</h4>
+<h3>Total Donations: @Model.Payments.Sum(p => p.Amount).ToString("C")</h3>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Amount</th>
+        <th>Expense</th>
+        <th>Date</th>
+    </tr>
+    @foreach (var p in Model.Payments)
+    {
+        <tr>
+            <td>@p.Amount.ToString("C")</td>
+            <td>@p.Name</td>
+            <td>@p.Date.ToShortDateString()</td>
+        </tr>
+    }
+
+</table>
+
+
+<h3>Total Pledges: <span id="pledge-sum">@Model.Pledges.Sum(p => p.Amount).ToString("C")</span></h3>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Action</th>
+        <th>Expense</th>
+        <th>Amount</th>
+        <th>Date</th>
+    </tr>
+    @foreach (var p in Model.Pledges)
+    {
+        <tr>
+            <td><button data-pledge-id="@p.Id" class="btn btn-warning pledge">Update Pledge</button></td>
+            <td>@p.Name</td>
+            <td>@p.Amount.ToString("C")</td>
+            <td>@p.Date.ToShortDateString()</td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="pledge-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span id="pledge-amount"></span> Pledge for <span id="expense-name"></span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="checkbox">
+                    <div class="col-md-6">
+                        <label>
+                            <input id="complete" type="checkbox">
+                            <b>Completely Paid</b>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="partial" data-max-num="">
+                    <label>
+                        <b id="hello">Partially Paid</b>
+                        <input id="amount" type="number" class="form-control">
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 20px;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input class="btn btn-danger" id="update" data-modal-id="" data-type="" disabled type="submit" value="Update">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/site-scripts/activity.js"></script>
+}

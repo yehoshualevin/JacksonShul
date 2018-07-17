@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using JacksonShul.Data;
 using JacksonShul.Models;
-using System.Dynamic;
+using JacksonShul.Properties;
 
 namespace JacksonShul.Controllers
 {
@@ -14,7 +14,7 @@ namespace JacksonShul.Controllers
     {
         public ActionResult Index()
         {
-            MessageRepository mr = new MessageRepository();
+            MessageRepository mr = new MessageRepository(Settings.Default.ConStr);
             HomePageViewModel vm = new HomePageViewModel();
             vm.Messages = mr.GetAllMessages();
             if (TempData["Notify"] != null)
@@ -38,7 +38,7 @@ namespace JacksonShul.Controllers
             {
                 return RedirectToAction("index");
             }
-            var repo = new VerifyRepository();
+            var repo = new VerifyRepository(Settings.Default.ConStr);
             repo.SignUp(member, password);
             TempData["Notify"] = "you successfuly signed up!";
             return RedirectToAction("Index");
@@ -54,7 +54,7 @@ namespace JacksonShul.Controllers
             {
                 return RedirectToAction("index");
             }
-            var repo = new VerifyRepository();
+            var repo = new VerifyRepository(Settings.Default.ConStr);
             var member = repo.Login(email, password);
             if (member == null)
             {
@@ -67,8 +67,8 @@ namespace JacksonShul.Controllers
         [Authorize]
         public ActionResult ViewShulExpenses()
         {
-            var repo = new FinancialRepository();            
-            var fr = new FinancialRepository();
+            var repo = new FinancialRepository(Settings.Default.ConStr);            
+            var fr = new FinancialRepository(Settings.Default.ConStr);
             List<Expense> expenses = fr.GetExpensesWithPaps();
             IEnumerable<ExpensePlus> expensesPlus = expenses.Select(e => new ExpensePlus
             {
@@ -84,7 +84,7 @@ namespace JacksonShul.Controllers
         [Authorize]
         public ActionResult Donate(int expenseId,string expenseName)
         {
-            var repo = new VerifyRepository();
+            var repo = new VerifyRepository(Settings.Default.ConStr);
             Member member = repo.GetByEmail(User.Identity.Name);
             if (member == null)
             {
@@ -104,14 +104,14 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult Donate(Payment payment)
         {
-            var fr = new FinancialRepository();
+            var fr = new FinancialRepository(Settings.Default.ConStr);
             fr.AddPayment(payment);
             return RedirectToAction("ViewShulExpenses");
         }
         [Authorize]
         public ActionResult Pledge(int expenseId,string expenseName)
         {
-            var repo = new VerifyRepository();
+            var repo = new VerifyRepository(Settings.Default.ConStr);
             Member member = repo.GetByEmail(User.Identity.Name);
             if (member == null)
             {
@@ -131,7 +131,7 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult Pledge(Pledge pledge)
         {
-            var fr = new FinancialRepository();
+            var fr = new FinancialRepository(Settings.Default.ConStr);
             fr.AddPledge(pledge);
             return RedirectToAction("Index");
         }
@@ -139,7 +139,7 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult UpdatePledge(int amount,int id)
         {
-            var fr = new FinancialRepository();
+            var fr = new FinancialRepository(Settings.Default.ConStr);
             fr.UpdatePledge(amount,id);
             Pledge pledge = fr.GetPledge(id);
             decimal a = pledge.Amount;
@@ -149,14 +149,14 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult DeletePledge(int id)
         {
-            var fr = new FinancialRepository();
+            var fr = new FinancialRepository(Settings.Default.ConStr);
             fr.DeletePledge(id);
             return Json(id);
         }
         [Authorize]
         public ActionResult GetPledge(int id)
         {
-            var fr = new FinancialRepository();
+            var fr = new FinancialRepository(Settings.Default.ConStr);
             Pledge pledge = fr.GetPledge(id);
             decimal amount = pledge.Amount;
             return Json(amount,JsonRequestBehavior.AllowGet);
@@ -164,13 +164,13 @@ namespace JacksonShul.Controllers
         [Authorize]
         public ActionResult ViewMyActivity()
         {
-            var repo = new VerifyRepository();
+            var repo = new VerifyRepository(Settings.Default.ConStr);
             Member member = repo.GetByEmail(User.Identity.Name);
             if (member == null)
             {
                 return RedirectToAction("ViewExpenses");
             }
-            var fr = new FinancialRepository();
+            var fr = new FinancialRepository(Settings.Default.ConStr);
             List<Payment> payments = fr.GetPaymentsByMemberId(member.Id);
             IEnumerable<Pledge> pledges = fr.GetPledgesByMemberId(member.Id);
             IEnumerable<PaymentWithName> pwn = payments.Select(p => new PaymentWithName

@@ -8,7 +8,6 @@ namespace System.Web.Mvc
 {
     public class AuthorizeUserAccessLevel : AuthorizeAttribute
     {
-
         public string UserRole { get; set; }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)

@@ -9,9 +9,16 @@ namespace JacksonShul.Data
 {
     public class FinancialRepository
     {
+        private readonly string _conStr;
+
+        public FinancialRepository(string conStr)
+        {
+            _conStr = conStr;
+        }
         public void AddExpense(Expense expense)
         {
-            using (var context = new ShulDataContext())
+
+            using (var context = new ShulDataContext(_conStr))
             {
                 context.Expenses.InsertOnSubmit(expense);
                 context.SubmitChanges();
@@ -21,7 +28,7 @@ namespace JacksonShul.Data
 
         public void AddPayment(Payment payment)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 context.Payments.InsertOnSubmit(payment);
                 context.SubmitChanges();
@@ -30,7 +37,7 @@ namespace JacksonShul.Data
 
         public void AddPledge(Pledge pledge)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 context.Pledges.InsertOnSubmit(pledge);
                 context.SubmitChanges();
@@ -38,28 +45,28 @@ namespace JacksonShul.Data
         }
         public void UpdatePledge(int amount, int id)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 context.ExecuteCommand("update Pledges set amount = amount-{0} where id = {1}",amount,id);
             }
         }
         public Pledge GetPledge(int id)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 return context.Pledges.FirstOrDefault(p => p.Id == id);
             }
         }
         public void DeletePledge(int id)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 context.ExecuteCommand("Delete from pledges where id = {0}",id);
             }
         }
         public IEnumerable<Payment> GetPayments()
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 return context.Payments.ToList();
             }
@@ -67,7 +74,7 @@ namespace JacksonShul.Data
 
         public List<Expense> GetExpensesWithPaps()
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Expense>(e => e.Payments);
@@ -79,7 +86,7 @@ namespace JacksonShul.Data
 
         public List<Payment> GetPaymentsByMemberId(int memberId)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Payment>(p => p.Expense);
@@ -90,7 +97,7 @@ namespace JacksonShul.Data
 
         public IEnumerable<Pledge> GetPledgesByMemberId(int memberId)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Pledge>(p => p.Expense);
@@ -100,21 +107,21 @@ namespace JacksonShul.Data
         }
         public List<Member> GetMembers()
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 return context.Members.ToList();
             }
         }
         public Member GetMember(int id)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 return context.Members.FirstOrDefault(m => m.Id == id);
             }
         }
         public List<Payment> GetAllPayments()
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Payment>(p => p.Expense);
@@ -124,7 +131,7 @@ namespace JacksonShul.Data
         }
         public List<Payment> GetPaymentsByExpenseId(int id)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Payment>(p => p.Member);
@@ -134,7 +141,7 @@ namespace JacksonShul.Data
         }
         public List<Pledge> GetPledgesByExpenseId(int id)
         {
-            using (var context = new ShulDataContext())
+            using (var context = new ShulDataContext(_conStr))
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Pledge>(p => p.Member);

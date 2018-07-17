@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using JacksonShul.Data;
 using JacksonShul.Models;
+using JacksonShul.Properties;
 
 namespace JacksonShul.Controllers
 {
@@ -28,21 +29,21 @@ namespace JacksonShul.Controllers
             {
                 return RedirectToAction("addexpense");
             }
-            var repo = new FinancialRepository();
+            var repo = new FinancialRepository(Settings.Default.ConStr);
             repo.AddExpense(expense);
             TempData["Notify"] = $"{expense.Name} added to expenses";
             return RedirectToAction("addexpense");
         }
         public ActionResult ViewMembers()
         {
-            FinancialRepository fr = new FinancialRepository();
+            FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
             List<Member> members = fr.GetMembers();           
             return View(members);
         }
         public ActionResult ViewExpenses()
         {
-            var repo = new FinancialRepository();
-            var fr = new FinancialRepository();
+            var repo = new FinancialRepository(Settings.Default.ConStr);
+            var fr = new FinancialRepository(Settings.Default.ConStr);
             List<Expense> expenses = fr.GetExpensesWithPaps();
             IEnumerable<ExpensePlus> expensesPlus = expenses.Select(e => new ExpensePlus
             {
@@ -56,13 +57,13 @@ namespace JacksonShul.Controllers
         }
         public ActionResult ViewAllPayments()
         {
-            FinancialRepository fr = new FinancialRepository();
+            FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
             IEnumerable<Payment>payments = fr.GetAllPayments();
             return View();
         }
         public ActionResult GetById(int id)
         {
-            FinancialRepository fr = new FinancialRepository();
+            FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
             List<Payment> payments = fr.GetPaymentsByMemberId(id);
             IEnumerable<Pledge> pledges = fr.GetPledgesByMemberId(id);
             Member m = fr.GetMember(id);
@@ -90,7 +91,7 @@ namespace JacksonShul.Controllers
         public ActionResult ViewDonations(int expenseId,string expenseName)
         {
             ViewBag.expensename = expenseName;
-            FinancialRepository fr = new FinancialRepository();
+            FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
             IEnumerable<Payment> payments = fr.GetPaymentsByExpenseId(expenseId);
             IEnumerable<PaymentWithName> pwn = payments.Select(p => new PaymentWithName
             {
@@ -103,7 +104,7 @@ namespace JacksonShul.Controllers
         public ActionResult ViewPledges(int expenseId, string expenseName)
         {
             ViewBag.expensename = expenseName;
-            FinancialRepository fr = new FinancialRepository();
+            FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
             IEnumerable<Pledge> payments = fr.GetPledgesByExpenseId(expenseId);
             IEnumerable<PledgeWithName> pwn = payments.Select(p => new PledgeWithName
             {
@@ -130,19 +131,19 @@ namespace JacksonShul.Controllers
             {
                 return RedirectToAction("AddMessage");
             }
-            var mr = new MessageRepository();
+            var mr = new MessageRepository(Settings.Default.ConStr);
             mr.AddMessage(message);
             TempData["Notify"] = "message added!";
             return RedirectToAction("AddMessage");
         }
         public ActionResult DeleteMessage()
         {
-            var mr = new MessageRepository();
+            var mr = new MessageRepository(Settings.Default.ConStr);
             return View(mr.GetAllMessages());
         }
         public ActionResult Delete(int id)
         {
-            var mr = new MessageRepository();
+            var mr = new MessageRepository(Settings.Default.ConStr);
             mr.DeleteMessage(id);
             return RedirectToAction("DeleteMessage");
         }

@@ -14,10 +14,12 @@ namespace JacksonShul.Controllers
     {
         public ActionResult Index()
         {
+            MessageRepository mr = new MessageRepository();
             HomePageViewModel vm = new HomePageViewModel();
-            if (TempData["Message"] != null)
+            vm.Messages = mr.GetAllMessages();
+            if (TempData["Notify"] != null)
             {
-                vm.Message = (string)TempData["Message"];
+                vm.Notify = (string)TempData["Notify"];
             }
             return View(vm);
         }
@@ -28,22 +30,30 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult Signup(Member member,string password)
         {
+            if(member.Cell == null || member.Email == null|| member.FirstName == null || member.LastName == null|| password == null)
+            {
+                return RedirectToAction("index");
+            }
+            if (member.Cell.Length > 12 || member.Email.Length > 40 || member.FirstName.Length > 40 || member.LastName.Length > 40 || password.Length > 25)
+            {
+                return RedirectToAction("index");
+            }
             var repo = new VerifyRepository();
             repo.SignUp(member, password);
-            TempData["Message"] = "You successfuly signed up!";
+            TempData["Notify"] = "you successfuly signed up!";
             return RedirectToAction("Index");
         }
-
         public ActionResult Login()
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            AuthorizeAttribute authorize = new AuthorizeAttribute();
-            authorize.Roles = "admin";
+            if (email == null || password == null)
+            {
+                return RedirectToAction("index");
+            }
             var repo = new VerifyRepository();
             var member = repo.Login(email, password);
             if (member == null)
@@ -182,6 +192,11 @@ namespace JacksonShul.Controllers
                 Pledges = plwn
             };
             return View(paps);
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,0 +1,33 @@
+﻿@model JacksonShul.Models.HomePageViewModel
+
+@if (!String.IsNullOrEmpty(@Model.Notify))
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        @Model.Notify
+    </div>
+}
+
+<div class="row">
+    <div class="well">
+        <h1 style="margin-left: 70px">New Message</h1>
+        <form method="post" action="addmessage">
+            <div class="form-group">
+                <label>Message:</label>
+                <textarea id="story" name="story" rows="10" cols="20" class="form-control"></textarea>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="main" value="true">
+                    <input type="hidden" name="main" value="false">
+                    <b>Main</b>
+                </label>
+            </div>
+            <button type="submit" id="submit-button" disabled class="btn btn-primary">Add Message</button>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/site-scripts/add-message.js"></script>
+}

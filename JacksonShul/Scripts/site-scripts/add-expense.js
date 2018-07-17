@@ -11,7 +11,9 @@
     $(".form-control").on('input', function () {
         $(".btn").prop('disabled', function () {
             const name = $("#name").val();
-            return !name;
+            const cost = $("#cost").val();
+            const unavailable = $('#unavailable').is(":checked");
+            return !name || !cost && !unavailable;
         });
     });
 

@@ -2,57 +2,63 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Shul">
   <DataContextMoniker Name="/ShulDataContext" />
   <nestedChildShapes>
-    <classShape Id="1369e3ee-4c7f-42fc-9c34-215ecd6bbfaf" absoluteBounds="5.125, 1.375, 2, 1.5785953776041666">
+    <classShape Id="1369e3ee-4c7f-42fc-9c34-215ecd6bbfaf" absoluteBounds="3.5, 1.25, 2, 1.5785953776041666">
       <DataClassMoniker Name="/ShulDataContext/Expense" />
       <nestedChildShapes>
-        <elementListCompartment Id="6621e409-2e98-45f9-81d6-091ae72aaf11" absoluteBounds="5.14, 1.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6621e409-2e98-45f9-81d6-091ae72aaf11" absoluteBounds="3.5149999999999997, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4d19ee4f-25c3-44eb-bff5-b7924022d902" absoluteBounds="1.625, 0.625, 2, 2.1554996744791666">
+    <classShape Id="4d19ee4f-25c3-44eb-bff5-b7924022d902" absoluteBounds="0.5, 0.5, 2, 2.1554996744791666">
       <DataClassMoniker Name="/ShulDataContext/Member" />
       <nestedChildShapes>
-        <elementListCompartment Id="500a228f-8ceb-4ecb-88d0-231a792a6f62" absoluteBounds="1.6399999999999997, 1.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="500a228f-8ceb-4ecb-88d0-231a792a6f62" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e594fa74-2583-4749-9ca4-f17973cf673a" absoluteBounds="5, 4.5, 2, 1.7708968098958331">
+    <classShape Id="e594fa74-2583-4749-9ca4-f17973cf673a" absoluteBounds="3.375, 4.5, 2, 1.7708968098958331">
       <DataClassMoniker Name="/ShulDataContext/Payment" />
       <nestedChildShapes>
-        <elementListCompartment Id="cd60361b-c4ae-48b4-aa0d-123140dcbac0" absoluteBounds="5.015, 4.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="cd60361b-c4ae-48b4-aa0d-123140dcbac0" absoluteBounds="3.3899999999999997, 4.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.53125 : 2.95359537760417); (6.53125 : 4.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.4375 : 2.82859537760417); (4.4375 : 4.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ShulDataContext/Expense/Expense_Payment" />
       <nodes>
         <classShapeMoniker Id="1369e3ee-4c7f-42fc-9c34-215ecd6bbfaf" />
         <classShapeMoniker Id="e594fa74-2583-4749-9ca4-f17973cf673a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.46875 : 2.78049967447917); (3.46875 : 4.59375); (5 : 4.59375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 0.84375); (3.40625 : 0.84375); (3.40625 : 4.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ShulDataContext/Member/Member_Payment" />
       <nodes>
         <classShapeMoniker Id="4d19ee4f-25c3-44eb-bff5-b7924022d902" />
         <classShapeMoniker Id="e594fa74-2583-4749-9ca4-f17973cf673a" />
       </nodes>
     </associationConnector>
-    <classShape Id="468bf858-06a4-4751-8d57-fa95bbf3aa6d" absoluteBounds="1.25, 4.75, 2, 1.7708968098958331">
+    <classShape Id="468bf858-06a4-4751-8d57-fa95bbf3aa6d" absoluteBounds="0.5, 4.75, 2, 1.7708968098958331">
       <DataClassMoniker Name="/ShulDataContext/Pledge" />
       <nestedChildShapes>
-        <elementListCompartment Id="7da142ed-fa5c-406b-a572-8dce44a53cc7" absoluteBounds="1.2650000000000001, 5.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7da142ed-fa5c-406b-a572-8dce44a53cc7" absoluteBounds="0.51500000000000012, 5.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.09375 : 2.95359537760417); (7.09375 : 6.42714680989583); (3.25 : 6.42714680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.46875 : 2.82859537760417); (5.46875 : 6.42714680989583); (2.5 : 6.42714680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ShulDataContext/Expense/Expense_Pledge" />
       <nodes>
         <classShapeMoniker Id="1369e3ee-4c7f-42fc-9c34-215ecd6bbfaf" />
         <classShapeMoniker Id="468bf858-06a4-4751-8d57-fa95bbf3aa6d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.4375 : 2.78049967447917); (2.4375 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5 : 2.65549967447917); (1.5 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ShulDataContext/Member/Member_Pledge" />
       <nodes>
         <classShapeMoniker Id="4d19ee4f-25c3-44eb-bff5-b7924022d902" />
         <classShapeMoniker Id="468bf858-06a4-4751-8d57-fa95bbf3aa6d" />
       </nodes>
     </associationConnector>
+    <classShape Id="693999a1-749e-4568-ad25-e36b11701145" absoluteBounds="5.75, 1.5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/ShulDataContext/Message" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bbb29535-8846-4378-8e4a-7c27c8736c83" absoluteBounds="5.765, 1.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

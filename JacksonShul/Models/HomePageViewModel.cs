@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using JacksonShul.Data;
 
 namespace JacksonShul.Models
 {
     public class HomePageViewModel
     {
-        public string Message { get; set; }
+        public IEnumerable<Message> Messages { get; set; }
+        public string Notify { get; set; }
     }
 }

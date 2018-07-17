@@ -1,13 +1,31 @@
 ﻿@model JacksonShul.Models.HomePageViewModel
 
-@if(!String.IsNullOrEmpty(@Model.Message)){
+@if(!String.IsNullOrEmpty(@Model.Notify)){
 <div class="alert alert-success">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    @Model.Message
+    @Model.Notify
 </div>
 }
 <div class="jumbotron">
-    <h2>Welcome to the Jackson Shul Website!!! @ViewBag.foo</h2>
+    <h2>Welcome to the Bais Medrash Of Jackson Website!!</h2>
     <br />
-    <p>Parshas Pinchas: Mincha 7:05. HDL"N 8:11 Mincha 8:14 Shacharis 8:35 Mincha 6:30, 7:50 Maariv 9:29</p>
+    @foreach (var m in Model.Messages)
+    {
+        if (m.Main)
+        {
+            <h2>@m.Story</h2>
+        }
+
+    }
+    <br />
+    <h3>Announcements</h3>
+    <br />
+    @foreach (var m in Model.Messages)
+    {
+        if (!m.Main)
+        {
+            <h4>@m.Story</h4>
+        }
+
+    }
 </div>

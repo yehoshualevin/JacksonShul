@@ -1,0 +1,22 @@
+﻿@using JacksonShul.Data
+@model IEnumerable<Message>
+
+<table class="table table-bordered table-hover" >
+    <tr>
+        <th>Delete</th>
+        <th>Message</th>
+        <th>Main</th>
+    </tr>
+    @foreach (var m in Model)
+    {
+        <tr>
+        <td><a href="/admin/delete?id=@m.Id" class="btn btn-danger">Delete</a></td>
+        <td>@m.Story</td>
+        <td>
+            @if(@m.Main){
+            <span style="font-size: 20px;" class="glyphicon glyphicon-ok-sign"></span>
+            }
+        </td> 
+        </tr>
+    }
+</table>

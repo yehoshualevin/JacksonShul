@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AuthorizeNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AuthorizeNet.1.9.5\lib\AuthorizeNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -151,6 +154,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +193,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\site-scripts\activity.js" />
     <Content Include="Scripts\site-scripts\add-expense.js" />
+    <Content Include="Scripts\site-scripts\add-message.js" />
     <Content Include="Scripts\site-scripts\donate.js" />
     <Content Include="Scripts\site-scripts\login.js" />
     <Content Include="Scripts\site-scripts\signup.js" />
@@ -207,7 +212,6 @@
     <Content Include="Views\Home\Signup.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\AddExpense.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\ViewShulExpenses.cshtml" />
     <Content Include="Views\Home\Donate.cshtml" />
     <Content Include="Views\Home\ViewMyActivity.cshtml" />
@@ -216,9 +220,12 @@
     <Content Include="Views\Admin\ViewExpenses.cshtml" />
     <Content Include="Views\Admin\ViewDonations.cshtml" />
     <Content Include="Views\Admin\ViewPledges.cshtml" />
+    <Content Include="Views\Admin\AddMessage.cshtml" />
+    <Content Include="Views\Admin\DeleteMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Security\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -8,7 +8,7 @@ $(() => {
     }
 
     function isFormValid() {
-        const email = isValidEmail($("#email").val())
+        const email = isValidEmail($("#email").val());
         const password = $("#password").val();
         return email && password;
     }

@@ -1,4 +1,15 @@
-﻿<div class="row">
+﻿@model JacksonShul.Models.HomePageViewModel
+
+@if (!String.IsNullOrEmpty(@Model.Notify))
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        @Model.Notify
+    </div>
+}
+
+
+<div class="row">
     <div class="col-md-5 col-md-offset-2">
         <div class="well">
             <h1 style="margin-left: 70px">New Expense</h1>
@@ -13,10 +24,10 @@
                     <input type="number" name="cost" class="form-control" id="cost" />
                 </div>
                 <div class="checkbox">
-                        <label>
-                            <input id="unavailable" type="checkbox">
-                            <b>Cost Not Available</b>
-                        </label>
+                    <label>
+                        <input id="unavailable" type="checkbox">
+                        <b>Cost Not Available</b>
+                    </label>
                 </div>
                 <button type="submit" disabled id="submit-button" class="btn btn-primary">Add Expense</button>
             </form>
@@ -27,4 +38,4 @@
 
 @section scripts{
     <script src="~/Scripts/site-scripts/add-expense.js"></script>
-    }
+}

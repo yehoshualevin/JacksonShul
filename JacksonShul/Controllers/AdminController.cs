@@ -8,30 +8,30 @@ using JacksonShul.Models;
 
 namespace JacksonShul.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [AuthorizeUserAccessLevel (UserRole = "Admin")]
     public class AdminController : Controller
     {
-        public ActionResult Index()
-        {
-            HomePageViewModel vm = new HomePageViewModel();
-            if (TempData["Message"] != null)
-            {
-                vm.Message = (string)TempData["Message"];
-            }
-            return View(vm);
-        }
         public ActionResult AddExpense()
         {
-            return View();
+            HomePageViewModel vm = new HomePageViewModel();
+            if (TempData["Notify"] != null)
+            {
+                vm.Notify = (string)TempData["Notify"];
+            }
+            return View(vm);
         }
 
         [HttpPost]
         public ActionResult AddExpense(Expense expense)
         {
+            if (expense.Name == null)
+            {
+                return RedirectToAction("addexpense");
+            }
             var repo = new FinancialRepository();
             repo.AddExpense(expense);
-            TempData["Message"] = $"{expense.Name} added to expenses";
-            return RedirectToAction("index");
+            TempData["Notify"] = $"{expense.Name} added to expenses";
+            return RedirectToAction("addexpense");
         }
         public ActionResult ViewMembers()
         {
@@ -112,6 +112,39 @@ namespace JacksonShul.Controllers
                 Name = p.Member.FirstName + " " + p.Member.LastName
             });
             return View(pwn);
+        }
+
+        public ActionResult AddMessage()
+        {
+            HomePageViewModel vm = new HomePageViewModel();
+            if (TempData["Notify"] != null)
+            {
+                vm.Notify = (string)TempData["Notify"];
+            }
+            return View(vm);
+        }
+        [HttpPost]
+        public ActionResult AddMessage(Message message)
+        {
+            if(message.Story == null)
+            {
+                return RedirectToAction("AddMessage");
+            }
+            var mr = new MessageRepository();
+            mr.AddMessage(message);
+            TempData["Notify"] = "message added!";
+            return RedirectToAction("AddMessage");
+        }
+        public ActionResult DeleteMessage()
+        {
+            var mr = new MessageRepository();
+            return View(mr.GetAllMessages());
+        }
+        public ActionResult Delete(int id)
+        {
+            var mr = new MessageRepository();
+            mr.DeleteMessage(id);
+            return RedirectToAction("DeleteMessage");
         }
     }
 }

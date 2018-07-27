@@ -1,0 +1,20 @@
+﻿@using JacksonShul.Models
+@model IEnumerable<MonthlyPaymentWithName>
+
+<h3>Monthly Payments for @ViewBag.expenseName</h3>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Donor</th>
+        <th>Amount</th>
+        <th>Payments Remaining</th>
+    </tr>
+    @foreach (var mp in Model)
+    {
+        <tr>
+            <td>@mp.Name</td>
+            <td>@mp.Amount.ToString("C")</td>
+            <td>@mp.Count</td>
+        </tr>
+    }
+
+</table>

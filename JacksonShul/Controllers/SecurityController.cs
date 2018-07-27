@@ -19,7 +19,7 @@ namespace System.Web.Mvc
             }
 
             string CurrentUserRole = HttpContext.Current.User.Identity.Name;
-            if (CurrentUserRole == "none of your business")
+            if (CurrentUserRole == "adminNQP39@gmail.com")
             {
                 return true;
             }
@@ -29,4 +29,6 @@ namespace System.Web.Mvc
             }
         }
     }
+
+    
 }

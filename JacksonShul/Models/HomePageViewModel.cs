@@ -10,5 +10,6 @@ namespace JacksonShul.Models
     {
         public IEnumerable<Message> Messages { get; set; }
         public string Notify { get; set; }
+        public List<string> Notifies { get; set; }
     }
 }

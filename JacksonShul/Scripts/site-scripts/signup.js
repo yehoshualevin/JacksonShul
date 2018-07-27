@@ -1,4 +1,4 @@
-﻿$(() => {
+﻿$( function() {
     $("#firstname").on('keyup', setButtonValidity);
     $("#lastname").on('keyup', setButtonValidity);
     $("#cell").on('keyup', setButtonValidity);

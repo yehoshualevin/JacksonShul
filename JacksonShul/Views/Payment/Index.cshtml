@@ -1,0 +1,17 @@
+﻿@using JacksonShul.Models
+@model Response
+
+@if (@Model.Status == "Approved")
+{
+    <h1>Your payment was approved</h1>
+}
+else if (Model.Status == "Declined")
+{
+    <h1>Your payment was declined</h1>
+}else if(Model.Status == "Error")
+{
+    <h1>There was an error with your payment</h1>
+    <h3>@Model.Error</h3>
+}
+<h3>Your reference number is @Model.RefNum</h3>
+

@@ -1,4 +1,4 @@
-﻿$(() => {
+﻿$(function() {
     const d = new Date();
     const month = d.getMonth() + 1;
     const day = d.getDate();
@@ -8,14 +8,17 @@
     $("#date").val(date);
 
 
-    $(".form-control").on('input', function () {
+    $(".form-control").on('input', setButtonValidity);
+    $("#unavailable").on("change", setButtonValidity);
+
+    function setButtonValidity() {
         $(".btn").prop('disabled', function () {
             const name = $("#name").val();
             const cost = $("#cost").val();
             const unavailable = $('#unavailable').is(":checked");
             return !name || !cost && !unavailable;
         });
-    });
+    };
 
     $("#unavailable").on("change", function () {
         if (this.checked) {

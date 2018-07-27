@@ -6,21 +6,25 @@
     <tr>
         <th>Donations</th>
         <th>Pledges</th>
+        <th>Monthly Payments</th>
         <th>Expense</th>
         <th>Cost</th>
         <th>Donated</th>
+        <th>Pledged</th>
         <th>Date</th>
     </tr>
 
     @foreach (var expense in Model)
     {
-        <tr>
-            <td><a href="/admin/viewdonations?expenseid=@expense.Id&expensename=@expense.Name" >View Donations</a></td>
-            <td><a href="/admin/viewpledges?expenseid=@expense.Id&expensename=@expense.Name" >View Pledges</a></td>
-            <td>@expense.Name</td>
-            <td>@(expense.Cost != null ? expense.Cost.Value.ToString("C") : "")</td>
-            <td>@(expense.TotalDonations.ToString("C"))</td>
-            <td> @expense.Date.ToShortDateString()</td>
-        </tr>
+    <tr>
+        <td><a href="/admin/viewdonations?expenseid=@expense.Id&expensename=@expense.Name">View Donations</a></td>
+        <td><a href="/admin/viewpledges?expenseid=@expense.Id&expensename=@expense.Name">View Pledges</a></td>
+        <td><a href="/admin/viewmonthlypayments?expenseid=@expense.Id&expensename=@expense.Name">View Monthly Payments</a></td>
+        <td>@expense.Name</td>
+        <td>@(expense.Cost != null ? expense.Cost.Value.ToString("C") : "")</td>
+        <td>@(expense.TotalDonations.ToString("C"))</td>
+        <td>@(expense.TotalPledges.ToString("C"))</td>
+        <td>@expense.Date.ToShortDateString()</td>
+    </tr>
     }
 </table>

@@ -1,5 +1,5 @@
 ﻿
-$(() => {
+$(function () {
     $("#email").on('keyup', setButtonValidity);
     $("#password").on('keyup', setButtonValidity);
 

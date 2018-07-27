@@ -1,0 +1,22 @@
+﻿@model JacksonShul.Data.Pledge
+
+<div class="row">
+    <div class="col-md-5 col-md-offset-2">
+        <div class="well">
+            <form method="post" action="pledge">
+                <input type="hidden" name="memberid" value="@Model.MemberId" />
+                <input type="hidden" name="expenseid" value="@Model.ExpenseId" />
+                <input type="hidden" name="date" value="@Model.Date" />
+                <div class="form-group">
+                    <label>Pledge For @ViewBag.expenseName</label>
+                    <input type="number" name="amount" class="form-control" id="amount" />
+                </div>
+                <button type="submit" disabled id="submit-button" class="btn btn-success">Pledge</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/site-scripts/pledge.js"></script>
+}

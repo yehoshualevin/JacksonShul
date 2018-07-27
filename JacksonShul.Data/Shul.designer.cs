@@ -45,6 +45,9 @@ namespace JacksonShul.Data
     partial void InsertMessage(Message instance);
     partial void UpdateMessage(Message instance);
     partial void DeleteMessage(Message instance);
+    partial void InsertMonthlyPayment(MonthlyPayment instance);
+    partial void UpdateMonthlyPayment(MonthlyPayment instance);
+    partial void DeleteMonthlyPayment(MonthlyPayment instance);
     #endregion
 		
 		public ShulDataContext() : 
@@ -116,6 +119,14 @@ namespace JacksonShul.Data
 				return this.GetTable<Message>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MonthlyPayment> MonthlyPayments
+		{
+			get
+			{
+				return this.GetTable<MonthlyPayment>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Expenses")]
@@ -136,6 +147,8 @@ namespace JacksonShul.Data
 		
 		private EntitySet<Pledge> _Pledges;
 		
+		private EntitySet<MonthlyPayment> _MonthlyPayments;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -154,6 +167,7 @@ namespace JacksonShul.Data
 		{
 			this._Payments = new EntitySet<Payment>(new Action<Payment>(this.attach_Payments), new Action<Payment>(this.detach_Payments));
 			this._Pledges = new EntitySet<Pledge>(new Action<Pledge>(this.attach_Pledges), new Action<Pledge>(this.detach_Pledges));
+			this._MonthlyPayments = new EntitySet<MonthlyPayment>(new Action<MonthlyPayment>(this.attach_MonthlyPayments), new Action<MonthlyPayment>(this.detach_MonthlyPayments));
 			OnCreated();
 		}
 		
@@ -263,6 +277,19 @@ namespace JacksonShul.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expense_MonthlyPayment", Storage="_MonthlyPayments", ThisKey="Id", OtherKey="ExpenseId")]
+		public EntitySet<MonthlyPayment> MonthlyPayments
+		{
+			get
+			{
+				return this._MonthlyPayments;
+			}
+			set
+			{
+				this._MonthlyPayments.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -306,6 +333,18 @@ namespace JacksonShul.Data
 			this.SendPropertyChanging();
 			entity.Expense = null;
 		}
+		
+		private void attach_MonthlyPayments(MonthlyPayment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Expense = this;
+		}
+		
+		private void detach_MonthlyPayments(MonthlyPayment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Expense = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Members")]
@@ -332,6 +371,8 @@ namespace JacksonShul.Data
 		
 		private EntitySet<Pledge> _Pledges;
 		
+		private EntitySet<MonthlyPayment> _MonthlyPayments;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -356,6 +397,7 @@ namespace JacksonShul.Data
 		{
 			this._Payments = new EntitySet<Payment>(new Action<Payment>(this.attach_Payments), new Action<Payment>(this.detach_Payments));
 			this._Pledges = new EntitySet<Pledge>(new Action<Pledge>(this.attach_Pledges), new Action<Pledge>(this.detach_Pledges));
+			this._MonthlyPayments = new EntitySet<MonthlyPayment>(new Action<MonthlyPayment>(this.attach_MonthlyPayments), new Action<MonthlyPayment>(this.detach_MonthlyPayments));
 			OnCreated();
 		}
 		
@@ -525,6 +567,19 @@ namespace JacksonShul.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MonthlyPayment", Storage="_MonthlyPayments", ThisKey="Id", OtherKey="MemberId")]
+		public EntitySet<MonthlyPayment> MonthlyPayments
+		{
+			get
+			{
+				return this._MonthlyPayments;
+			}
+			set
+			{
+				this._MonthlyPayments.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -564,6 +619,18 @@ namespace JacksonShul.Data
 		}
 		
 		private void detach_Pledges(Pledge entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
+		}
+		
+		private void attach_MonthlyPayments(MonthlyPayment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_MonthlyPayments(MonthlyPayment entity)
 		{
 			this.SendPropertyChanging();
 			entity.Member = null;
@@ -1135,6 +1202,390 @@ namespace JacksonShul.Data
 					this._Main = value;
 					this.SendPropertyChanged("Main");
 					this.OnMainChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MonthlyPayments")]
+	public partial class MonthlyPayment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _MemberId;
+		
+		private int _ExpenseId;
+		
+		private int _Amount;
+		
+		private string _Street;
+		
+		private string _Zipcode;
+		
+		private System.Nullable<int> _Count;
+		
+		private string _Name;
+		
+		private string _Exp;
+		
+		private string _Token;
+		
+		private bool _Credit;
+		
+		private EntityRef<Expense> _Expense;
+		
+		private EntityRef<Member> _Member;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnMemberIdChanging(int value);
+    partial void OnMemberIdChanged();
+    partial void OnExpenseIdChanging(int value);
+    partial void OnExpenseIdChanged();
+    partial void OnAmountChanging(int value);
+    partial void OnAmountChanged();
+    partial void OnStreetChanging(string value);
+    partial void OnStreetChanged();
+    partial void OnZipcodeChanging(string value);
+    partial void OnZipcodeChanged();
+    partial void OnCountChanging(System.Nullable<int> value);
+    partial void OnCountChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnExpChanging(string value);
+    partial void OnExpChanged();
+    partial void OnTokenChanging(string value);
+    partial void OnTokenChanged();
+    partial void OnCreditChanging(bool value);
+    partial void OnCreditChanged();
+    #endregion
+		
+		public MonthlyPayment()
+		{
+			this._Expense = default(EntityRef<Expense>);
+			this._Member = default(EntityRef<Member>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberId", DbType="Int NOT NULL")]
+		public int MemberId
+		{
+			get
+			{
+				return this._MemberId;
+			}
+			set
+			{
+				if ((this._MemberId != value))
+				{
+					if (this._Member.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMemberIdChanging(value);
+					this.SendPropertyChanging();
+					this._MemberId = value;
+					this.SendPropertyChanged("MemberId");
+					this.OnMemberIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpenseId", DbType="Int NOT NULL")]
+		public int ExpenseId
+		{
+			get
+			{
+				return this._ExpenseId;
+			}
+			set
+			{
+				if ((this._ExpenseId != value))
+				{
+					if (this._Expense.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnExpenseIdChanging(value);
+					this.SendPropertyChanging();
+					this._ExpenseId = value;
+					this.SendPropertyChanged("ExpenseId");
+					this.OnExpenseIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Int NOT NULL")]
+		public int Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this.OnAmountChanging(value);
+					this.SendPropertyChanging();
+					this._Amount = value;
+					this.SendPropertyChanged("Amount");
+					this.OnAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Street", DbType="VarChar(255)")]
+		public string Street
+		{
+			get
+			{
+				return this._Street;
+			}
+			set
+			{
+				if ((this._Street != value))
+				{
+					this.OnStreetChanging(value);
+					this.SendPropertyChanging();
+					this._Street = value;
+					this.SendPropertyChanged("Street");
+					this.OnStreetChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zipcode", DbType="VarChar(10)")]
+		public string Zipcode
+		{
+			get
+			{
+				return this._Zipcode;
+			}
+			set
+			{
+				if ((this._Zipcode != value))
+				{
+					this.OnZipcodeChanging(value);
+					this.SendPropertyChanging();
+					this._Zipcode = value;
+					this.SendPropertyChanged("Zipcode");
+					this.OnZipcodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Count", DbType="Int")]
+		public System.Nullable<int> Count
+		{
+			get
+			{
+				return this._Count;
+			}
+			set
+			{
+				if ((this._Count != value))
+				{
+					this.OnCountChanging(value);
+					this.SendPropertyChanging();
+					this._Count = value;
+					this.SendPropertyChanged("Count");
+					this.OnCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Exp", DbType="VarChar(5)")]
+		public string Exp
+		{
+			get
+			{
+				return this._Exp;
+			}
+			set
+			{
+				if ((this._Exp != value))
+				{
+					this.OnExpChanging(value);
+					this.SendPropertyChanging();
+					this._Exp = value;
+					this.SendPropertyChanged("Exp");
+					this.OnExpChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Token", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Token
+		{
+			get
+			{
+				return this._Token;
+			}
+			set
+			{
+				if ((this._Token != value))
+				{
+					this.OnTokenChanging(value);
+					this.SendPropertyChanging();
+					this._Token = value;
+					this.SendPropertyChanged("Token");
+					this.OnTokenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Credit", DbType="Bit NOT NULL")]
+		public bool Credit
+		{
+			get
+			{
+				return this._Credit;
+			}
+			set
+			{
+				if ((this._Credit != value))
+				{
+					this.OnCreditChanging(value);
+					this.SendPropertyChanging();
+					this._Credit = value;
+					this.SendPropertyChanged("Credit");
+					this.OnCreditChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expense_MonthlyPayment", Storage="_Expense", ThisKey="ExpenseId", OtherKey="Id", IsForeignKey=true)]
+		public Expense Expense
+		{
+			get
+			{
+				return this._Expense.Entity;
+			}
+			set
+			{
+				Expense previousValue = this._Expense.Entity;
+				if (((previousValue != value) 
+							|| (this._Expense.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Expense.Entity = null;
+						previousValue.MonthlyPayments.Remove(this);
+					}
+					this._Expense.Entity = value;
+					if ((value != null))
+					{
+						value.MonthlyPayments.Add(this);
+						this._ExpenseId = value.Id;
+					}
+					else
+					{
+						this._ExpenseId = default(int);
+					}
+					this.SendPropertyChanged("Expense");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MonthlyPayment", Storage="_Member", ThisKey="MemberId", OtherKey="Id", IsForeignKey=true)]
+		public Member Member
+		{
+			get
+			{
+				return this._Member.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member.Entity;
+				if (((previousValue != value) 
+							|| (this._Member.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member.Entity = null;
+						previousValue.MonthlyPayments.Remove(this);
+					}
+					this._Member.Entity = value;
+					if ((value != null))
+					{
+						value.MonthlyPayments.Add(this);
+						this._MemberId = value.Id;
+					}
+					else
+					{
+						this._MemberId = default(int);
+					}
+					this.SendPropertyChanged("Member");
 				}
 			}
 		}

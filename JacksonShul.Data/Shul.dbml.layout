@@ -2,63 +2,83 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Shul">
   <DataContextMoniker Name="/ShulDataContext" />
   <nestedChildShapes>
-    <classShape Id="1369e3ee-4c7f-42fc-9c34-215ecd6bbfaf" absoluteBounds="3.5, 1.25, 2, 1.5785953776041666">
+    <classShape Id="cd4106b4-3d74-430e-8277-52c8c64bb866" absoluteBounds="3.875, 1, 2, 1.5785953776041666">
       <DataClassMoniker Name="/ShulDataContext/Expense" />
       <nestedChildShapes>
-        <elementListCompartment Id="6621e409-2e98-45f9-81d6-091ae72aaf11" absoluteBounds="3.5149999999999997, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d971d910-f6d5-4980-a7ee-8ae6d3eba88b" absoluteBounds="3.89, 1.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="4d19ee4f-25c3-44eb-bff5-b7924022d902" absoluteBounds="0.5, 0.5, 2, 2.1554996744791666">
+    <classShape Id="b5c20bc6-b945-421c-89a9-ae3e45a46c77" absoluteBounds="6.25, 1, 2, 2.1554996744791666">
       <DataClassMoniker Name="/ShulDataContext/Member" />
       <nestedChildShapes>
-        <elementListCompartment Id="500a228f-8ceb-4ecb-88d0-231a792a6f62" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4d9ef955-1cb6-4e98-9967-9a818c396dd1" absoluteBounds="6.265, 1.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e594fa74-2583-4749-9ca4-f17973cf673a" absoluteBounds="3.375, 4.5, 2, 1.7708968098958331">
+    <classShape Id="b4438be4-e991-451c-9ba9-b5b28e759555" absoluteBounds="1.25, 4.25, 2, 1.7708968098958331">
       <DataClassMoniker Name="/ShulDataContext/Payment" />
       <nestedChildShapes>
-        <elementListCompartment Id="cd60361b-c4ae-48b4-aa0d-123140dcbac0" absoluteBounds="3.3899999999999997, 4.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="20925e44-9e9d-49c9-a2c9-69c6d50bd6ef" absoluteBounds="1.2649999999999997, 4.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.4375 : 2.82859537760417); (4.4375 : 4.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.78125 : 2.57859537760417); (5.78125 : 5.30214680989583); (3.25 : 5.30214680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ShulDataContext/Expense/Expense_Payment" />
       <nodes>
-        <classShapeMoniker Id="1369e3ee-4c7f-42fc-9c34-215ecd6bbfaf" />
-        <classShapeMoniker Id="e594fa74-2583-4749-9ca4-f17973cf673a" />
+        <classShapeMoniker Id="cd4106b4-3d74-430e-8277-52c8c64bb866" />
+        <classShapeMoniker Id="b4438be4-e991-451c-9ba9-b5b28e759555" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 0.84375); (3.40625 : 0.84375); (3.40625 : 4.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.15625 : 3.15549967447917); (8.15625 : 5.94155110677083); (3.25 : 5.94155110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ShulDataContext/Member/Member_Payment" />
       <nodes>
-        <classShapeMoniker Id="4d19ee4f-25c3-44eb-bff5-b7924022d902" />
-        <classShapeMoniker Id="e594fa74-2583-4749-9ca4-f17973cf673a" />
+        <classShapeMoniker Id="b5c20bc6-b945-421c-89a9-ae3e45a46c77" />
+        <classShapeMoniker Id="b4438be4-e991-451c-9ba9-b5b28e759555" />
       </nodes>
     </associationConnector>
-    <classShape Id="468bf858-06a4-4751-8d57-fa95bbf3aa6d" absoluteBounds="0.5, 4.75, 2, 1.7708968098958331">
+    <classShape Id="4907cce8-9939-4c6e-afdf-f17e2ff8746e" absoluteBounds="3.625, 2.75, 2, 1.7708968098958331">
       <DataClassMoniker Name="/ShulDataContext/Pledge" />
       <nestedChildShapes>
-        <elementListCompartment Id="7da142ed-fa5c-406b-a572-8dce44a53cc7" absoluteBounds="0.51500000000000012, 5.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8bf22f2b-9a7c-4231-a8fe-55d3a197eb48" absoluteBounds="3.64, 3.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.46875 : 2.82859537760417); (5.46875 : 6.42714680989583); (2.5 : 6.42714680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.71875 : 2.57859537760417); (4.71875 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ShulDataContext/Expense/Expense_Pledge" />
       <nodes>
-        <classShapeMoniker Id="1369e3ee-4c7f-42fc-9c34-215ecd6bbfaf" />
-        <classShapeMoniker Id="468bf858-06a4-4751-8d57-fa95bbf3aa6d" />
+        <classShapeMoniker Id="cd4106b4-3d74-430e-8277-52c8c64bb866" />
+        <classShapeMoniker Id="4907cce8-9939-4c6e-afdf-f17e2ff8746e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.5 : 2.65549967447917); (1.5 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.25 : 2.78125); (6.04379700658756 : 2.78125 : JumpStart); (5.87713033992089 : 2.78125 : JumpEnd); (5.86458333333333 : 2.78125 : JumpStart); (5.69791666666667 : 2.78125 : JumpEnd); (5.625 : 2.78125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ShulDataContext/Member/Member_Pledge" />
       <nodes>
-        <classShapeMoniker Id="4d19ee4f-25c3-44eb-bff5-b7924022d902" />
-        <classShapeMoniker Id="468bf858-06a4-4751-8d57-fa95bbf3aa6d" />
+        <classShapeMoniker Id="b5c20bc6-b945-421c-89a9-ae3e45a46c77" />
+        <classShapeMoniker Id="4907cce8-9939-4c6e-afdf-f17e2ff8746e" />
       </nodes>
     </associationConnector>
-    <classShape Id="693999a1-749e-4568-ad25-e36b11701145" absoluteBounds="5.75, 1.5, 2, 1.3862939453125">
+    <classShape Id="282eff80-f255-4c59-8040-b5d19ac92757" absoluteBounds="3.5, 1.25, 2, 1.3862939453125">
       <DataClassMoniker Name="/ShulDataContext/Message" />
       <nestedChildShapes>
-        <elementListCompartment Id="bbb29535-8846-4378-8e4a-7c27c8736c83" absoluteBounds="5.765, 1.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="45bc5d68-1fd9-4419-a499-c3d824b13bd6" absoluteBounds="3.515, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="a01481b9-ef1a-495e-a0b6-bfdb4cf0889d" absoluteBounds="6, 2.875, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/ShulDataContext/MonthlyPayment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cc370d16-34aa-4c09-b6ab-913abca3b515" absoluteBounds="6.015, 3.335, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.875 : 2.57859537760417); (6 : 2.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ShulDataContext/Expense/Expense_MonthlyPayment" />
+      <nodes>
+        <classShapeMoniker Id="cd4106b4-3d74-430e-8277-52c8c64bb866" />
+        <classShapeMoniker Id="a01481b9-ef1a-495e-a0b6-bfdb4cf0889d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 3.15396021294071); (8.625 : 3.5289602129407); (8.625 : 4.5088520390625); (8.23958333333333 : 4.5088520390625 : JumpStart); (8.07291666666667 : 4.5088520390625 : JumpEnd); (8 : 4.5088520390625)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ShulDataContext/Member/Member_MonthlyPayment" />
+      <nodes>
+        <classShapeMoniker Id="b5c20bc6-b945-421c-89a9-ae3e45a46c77" />
+        <classShapeMoniker Id="a01481b9-ef1a-495e-a0b6-bfdb4cf0889d" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -1,4 +1,4 @@
-﻿$(() => {
+﻿$(function() {
     $(".pledge").on("click", function () {
         $("#amount").val("");
         $("#partial").show();

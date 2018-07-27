@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using JacksonShul.Data;
 using JacksonShul.Models;
@@ -37,35 +36,30 @@ namespace JacksonShul.Controllers
         public ActionResult ViewMembers()
         {
             FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
-            List<Member> members = fr.GetMembers();           
+            IEnumerable<Member> members = fr.GetMembers();           
             return View(members);
         }
         public ActionResult ViewExpenses()
         {
-            var repo = new FinancialRepository(Settings.Default.ConStr);
             var fr = new FinancialRepository(Settings.Default.ConStr);
-            List<Expense> expenses = fr.GetExpensesWithPaps();
+            IEnumerable<Expense> expenses = fr.GetExpensesWithPaps();
             IEnumerable<ExpensePlus> expensesPlus = expenses.Select(e => new ExpensePlus
             {
                 Id = e.Id,
                 Name = e.Name,
                 Cost = e.Cost,
                 TotalDonations = e.Payments.Sum(p => p.Amount),
+                TotalPledges = e.Pledges.Sum(p => p.Amount),
                 Date = e.Date
             });
             return View(expensesPlus);
         }
-        public ActionResult ViewAllPayments()
-        {
-            FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
-            IEnumerable<Payment>payments = fr.GetAllPayments();
-            return View();
-        }
         public ActionResult GetById(int id)
         {
             FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
-            List<Payment> payments = fr.GetPaymentsByMemberId(id);
+            IEnumerable<Payment> payments = fr.GetPaymentsByMemberId(id);
             IEnumerable<Pledge> pledges = fr.GetPledgesByMemberId(id);
+            IEnumerable<MonthlyPayment> monthlyPayments = fr.GetMonthlyPaymentsByMemberId(id);
             Member m = fr.GetMember(id);
             IEnumerable<PaymentWithName> pwn = payments.Select(p => new PaymentWithName
             {
@@ -80,10 +74,17 @@ namespace JacksonShul.Controllers
                 Date = p.Date,
                 Name = p.Expense.Name
             });
+            IEnumerable<MonthlyPaymentWithName> mpwn = monthlyPayments.Select(mp => new MonthlyPaymentWithName
+            {
+                Amount = mp.Amount,
+                Name = mp.Expense.Name,
+                Count = mp.Count.Value
+            });
             PaymentsAndPledges paps = new PaymentsAndPledges
             {
                 Payments = pwn,
                 Pledges = plwn,
+                MonthlyPayments = mpwn,
                 Member = m
             };
             return View(paps);
@@ -114,6 +115,19 @@ namespace JacksonShul.Controllers
             });
             return View(pwn);
         }
+        public ActionResult ViewMonthlyPayments(int expenseId, string expenseName)
+        {
+            ViewBag.expensename = expenseName;
+            FinancialRepository fr = new FinancialRepository(Settings.Default.ConStr);
+            IEnumerable<MonthlyPayment> monthlyPayments = fr.GetMonthlyPaymentsByExpenseId(expenseId);
+            IEnumerable<MonthlyPaymentWithName> mpwn = monthlyPayments.Select(mp => new MonthlyPaymentWithName
+            {
+                Amount = mp.Amount,
+                Name = mp.Member.FirstName + " " + mp.Member.LastName,
+                Count = mp.Count.Value
+            });
+            return View(mpwn);
+        }
 
         public ActionResult AddMessage()
         {
@@ -141,11 +155,16 @@ namespace JacksonShul.Controllers
             var mr = new MessageRepository(Settings.Default.ConStr);
             return View(mr.GetAllMessages());
         }
-        public ActionResult Delete(int id)
+
+        [HttpPost]
+        public ActionResult DeleteMessage(int id)
         {
             var mr = new MessageRepository(Settings.Default.ConStr);
             mr.DeleteMessage(id);
             return RedirectToAction("DeleteMessage");
         }
+       
+       
+
     }
 }

@@ -154,6 +154,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -161,9 +162,11 @@
     <Compile Include="LayoutDataAttribute.cs" />
     <Compile Include="Models\ExpensePlus.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
+    <Compile Include="Models\MonthlyPaymentWithName.cs" />
     <Compile Include="Models\PaymentsAndPledges.cs" />
     <Compile Include="Models\PaymentWithName.cs" />
     <Compile Include="Models\PledgeWithName.cs" />
+    <Compile Include="Models\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -180,6 +183,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -206,6 +210,7 @@
     <Content Include="Scripts\site-scripts\add-message.js" />
     <Content Include="Scripts\site-scripts\donate.js" />
     <Content Include="Scripts\site-scripts\login.js" />
+    <Content Include="Scripts\site-scripts\pledge.js" />
     <Content Include="Scripts\site-scripts\signup.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -233,6 +238,10 @@
     <Content Include="Views\Admin\ViewPledges.cshtml" />
     <Content Include="Views\Admin\AddMessage.cshtml" />
     <Content Include="Views\Admin\DeleteMessage.cshtml" />
+    <Content Include="Views\Home\Pledge.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Payment\MonthlyPayments.cshtml" />
+    <Content Include="Views\Admin\ViewMonthlyPayments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

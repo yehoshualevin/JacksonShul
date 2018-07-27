@@ -40,7 +40,7 @@ namespace JacksonShul.Controllers
             }
             var repo = new VerifyRepository(Settings.Default.ConStr);
             repo.SignUp(member, password);
-            TempData["Notify"] = "you successfuly signed up!";
+            TempData["Notify"] = "You successfuly signed up!";
             return RedirectToAction("Index");
         }
         public ActionResult Login()
@@ -66,10 +66,9 @@ namespace JacksonShul.Controllers
         }
         [Authorize]
         public ActionResult ViewShulExpenses()
-        {
-            var repo = new FinancialRepository(Settings.Default.ConStr);            
+        {     
             var fr = new FinancialRepository(Settings.Default.ConStr);
-            List<Expense> expenses = fr.GetExpensesWithPaps();
+            IEnumerable<Expense> expenses = fr.GetExpensesWithPaps();
             IEnumerable<ExpensePlus> expensesPlus = expenses.Select(e => new ExpensePlus
             {
                 Id = e.Id,
@@ -88,25 +87,15 @@ namespace JacksonShul.Controllers
             Member member = repo.GetByEmail(User.Identity.Name);
             if (member == null)
             {
-                return RedirectToAction("ViewExpenses");
+                return RedirectToAction("ViewShulExpenses");
             }
             ViewBag.expenseName = expenseName;
-            ViewBag.payment = true;
             Payment payment = new Payment
             {
                 MemberId = member.Id,
                 ExpenseId = expenseId,
-                Date = DateTime.Now,
             };            
             return View(payment);
-        }
-        [Authorize]
-        [HttpPost]
-        public ActionResult Donate(Payment payment)
-        {
-            var fr = new FinancialRepository(Settings.Default.ConStr);
-            fr.AddPayment(payment);
-            return RedirectToAction("ViewShulExpenses");
         }
         [Authorize]
         public ActionResult Pledge(int expenseId,string expenseName)
@@ -115,17 +104,16 @@ namespace JacksonShul.Controllers
             Member member = repo.GetByEmail(User.Identity.Name);
             if (member == null)
             {
-                return RedirectToAction("ViewExpenses");
+                return RedirectToAction("ViewShulExpenses");
             }
             ViewBag.expenseName = expenseName;
-            ViewBag.payment = false;
-            Payment pledge = new Payment
+            Pledge pledge = new Pledge
             {
                 MemberId = member.Id,
                 ExpenseId = expenseId,
                 Date = DateTime.Now,
             };
-            return View("Donate",pledge);
+            return View(pledge);
         }
         [Authorize]
         [HttpPost]
@@ -133,7 +121,7 @@ namespace JacksonShul.Controllers
         {
             var fr = new FinancialRepository(Settings.Default.ConStr);
             fr.AddPledge(pledge);
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewMyActivity");
         }
         [Authorize]
         [HttpPost]
@@ -154,14 +142,6 @@ namespace JacksonShul.Controllers
             return Json(id);
         }
         [Authorize]
-        public ActionResult GetPledge(int id)
-        {
-            var fr = new FinancialRepository(Settings.Default.ConStr);
-            Pledge pledge = fr.GetPledge(id);
-            decimal amount = pledge.Amount;
-            return Json(amount,JsonRequestBehavior.AllowGet);
-        }
-        [Authorize]
         public ActionResult ViewMyActivity()
         {
             var repo = new VerifyRepository(Settings.Default.ConStr);
@@ -171,8 +151,9 @@ namespace JacksonShul.Controllers
                 return RedirectToAction("ViewExpenses");
             }
             var fr = new FinancialRepository(Settings.Default.ConStr);
-            List<Payment> payments = fr.GetPaymentsByMemberId(member.Id);
+            IEnumerable<Payment> payments = fr.GetPaymentsByMemberId(member.Id);
             IEnumerable<Pledge> pledges = fr.GetPledgesByMemberId(member.Id);
+            IEnumerable<MonthlyPayment> monthlyPayments = fr.GetMonthlyPaymentsByMemberId(member.Id);
             IEnumerable<PaymentWithName> pwn = payments.Select(p => new PaymentWithName
             {
                 Amount = p.Amount,
@@ -186,13 +167,22 @@ namespace JacksonShul.Controllers
                 Date = p.Date,
                 Name = p.Expense.Name
             });
+            IEnumerable<MonthlyPaymentWithName> mpwn = monthlyPayments.Select(mp => new MonthlyPaymentWithName
+            {
+                Amount = mp.Amount,
+                Name = mp.Expense.Name,
+                Count = mp.Count.Value
+            });
             PaymentsAndPledges paps = new PaymentsAndPledges
             {
                 Payments = pwn,
-                Pledges = plwn
+                Pledges = plwn,
+                MonthlyPayments = mpwn
             };
             return View(paps);
         }
+        [Authorize]
+        [HttpPost]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

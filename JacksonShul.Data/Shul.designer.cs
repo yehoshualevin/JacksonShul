@@ -42,12 +42,12 @@ namespace JacksonShul.Data
     partial void InsertPledge(Pledge instance);
     partial void UpdatePledge(Pledge instance);
     partial void DeletePledge(Pledge instance);
-    partial void InsertMessage(Message instance);
-    partial void UpdateMessage(Message instance);
-    partial void DeleteMessage(Message instance);
     partial void InsertMonthlyPayment(MonthlyPayment instance);
     partial void UpdateMonthlyPayment(MonthlyPayment instance);
     partial void DeleteMonthlyPayment(MonthlyPayment instance);
+    partial void InsertMessage(Message instance);
+    partial void UpdateMessage(Message instance);
+    partial void DeleteMessage(Message instance);
     #endregion
 		
 		public ShulDataContext() : 
@@ -112,19 +112,19 @@ namespace JacksonShul.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<Message> Messages
-		{
-			get
-			{
-				return this.GetTable<Message>();
-			}
-		}
-		
 		public System.Data.Linq.Table<MonthlyPayment> MonthlyPayments
 		{
 			get
 			{
 				return this.GetTable<MonthlyPayment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Message> Messages
+		{
+			get
+			{
+				return this.GetTable<Message>();
 			}
 		}
 	}
@@ -1117,116 +1117,6 @@ namespace JacksonShul.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Messages")]
-	public partial class Message : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Story;
-		
-		private bool _Main;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnStoryChanging(string value);
-    partial void OnStoryChanged();
-    partial void OnMainChanging(bool value);
-    partial void OnMainChanged();
-    #endregion
-		
-		public Message()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Story", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string Story
-		{
-			get
-			{
-				return this._Story;
-			}
-			set
-			{
-				if ((this._Story != value))
-				{
-					this.OnStoryChanging(value);
-					this.SendPropertyChanging();
-					this._Story = value;
-					this.SendPropertyChanged("Story");
-					this.OnStoryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Main", DbType="Bit NOT NULL")]
-		public bool Main
-		{
-			get
-			{
-				return this._Main;
-			}
-			set
-			{
-				if ((this._Main != value))
-				{
-					this.OnMainChanging(value);
-					this.SendPropertyChanging();
-					this._Main = value;
-					this.SendPropertyChanged("Main");
-					this.OnMainChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MonthlyPayments")]
 	public partial class MonthlyPayment : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1586,6 +1476,116 @@ namespace JacksonShul.Data
 						this._MemberId = default(int);
 					}
 					this.SendPropertyChanged("Member");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Messages")]
+	public partial class Message : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Story;
+		
+		private bool _Main;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnStoryChanging(string value);
+    partial void OnStoryChanged();
+    partial void OnMainChanging(bool value);
+    partial void OnMainChanged();
+    #endregion
+		
+		public Message()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Story", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Story
+		{
+			get
+			{
+				return this._Story;
+			}
+			set
+			{
+				if ((this._Story != value))
+				{
+					this.OnStoryChanging(value);
+					this.SendPropertyChanging();
+					this._Story = value;
+					this.SendPropertyChanged("Story");
+					this.OnStoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Main", DbType="Bit NOT NULL")]
+		public bool Main
+		{
+			get
+			{
+				return this._Main;
+			}
+			set
+			{
+				if ((this._Main != value))
+				{
+					this.OnMainChanging(value);
+					this.SendPropertyChanging();
+					this._Main = value;
+					this.SendPropertyChanged("Main");
+					this.OnMainChanged();
 				}
 			}
 		}

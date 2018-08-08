@@ -23,6 +23,10 @@ namespace JacksonShul.Controllers
             }
             return View(vm);
         }
+        public ActionResult Zmanim()
+        {
+            return View();
+        }
         public ActionResult Signup()
         {
             return View();

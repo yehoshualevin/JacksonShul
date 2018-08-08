@@ -22,6 +22,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("View Shul Expenses", "ViewShulExpenses", "Home")</li>
                     <li>@Html.ActionLink("View My Activity", "ViewMyActivity", "Home")</li>
+                    <li>@Html.ActionLink("View Zmanim", "Zmanim", "Home")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -30,15 +31,20 @@
                             <li><a href="/admin/viewexpenses">View Expenses</a></li>
                             <li><a href="/admin/addmessage">Add Message</a></li>
                             <li><a href="/admin/deletemessage">Delete Message</a></li>
+                            <li><a href="/admin/guestpayment">Guest Payment</a></li>
+                            <li><a href="/admin/makemonthlypayments">Monthly Payments</a></li>
                         </ul>
                     </li>
-                    <li style="margin-top: 12px;">
-                        <form method="post" action="/home/logout">
-                            <button class="btn-link">Log Out</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+                    @if (ViewBag.name != "")
+                    {
+                        <li style="margin-top: 12px;">
+                            <form method="post" action="/home/logout">
+                                <button class="btn-link">Log Out</button>
+                            </form>
+                        </li>
+                    }
+                </ul>                
+                </div>
         </div>
     </div>
     <div style="margin-top: 10px;margin-left: 20px;">

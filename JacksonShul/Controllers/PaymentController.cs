@@ -137,6 +137,7 @@ namespace JacksonShul.Controllers
 
 
         [AuthorizeUserAccessLevel(UserRole = "Admin")]
+        [HttpPost]
         public ActionResult MonthlyPayments(string password)
         {
             if (password != "MAWV29mp")

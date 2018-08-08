@@ -106,7 +106,7 @@ namespace JacksonShul.Data
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<Payment>(p => p.Expense);
                 context.LoadOptions = loadOptions;
-                return context.Payments.Where(p => p.MemberId == memberId).ToList();
+                return context.Payments.Where(p => p.MemberId == memberId).ToList();                 
             }
         }
 

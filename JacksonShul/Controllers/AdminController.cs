@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using JacksonShul.Data;
 using JacksonShul.Models;
@@ -20,7 +22,6 @@ namespace JacksonShul.Controllers
             }
             return View(vm);
         }
-
         [HttpPost]
         public ActionResult AddExpense(Expense expense)
         {
@@ -128,7 +129,36 @@ namespace JacksonShul.Controllers
             });
             return View(mpwn);
         }
-
+        public ActionResult MakeMonthlyPayments()
+        {
+            return View();
+        }
+        public ActionResult GuestPayment()
+        {
+                var fr = new FinancialRepository(Settings.Default.ConStr);
+                IEnumerable<Expense> expenses = fr.GetExpensesWithPaps();
+                IEnumerable<ExpensePlus> expensesPlus = expenses.Select(e => new ExpensePlus
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Cost = e.Cost,
+                    TotalDonations = e.Payments.Sum(p => p.Amount),
+                    TotalPledges = e.Pledges.Sum(p => p.Amount),
+                    Date = e.Date
+                });
+                return View(expensesPlus);
+        }
+        public ActionResult Donate(int expenseId, string expenseName)
+        {
+            var repo = new VerifyRepository(Settings.Default.ConStr);
+            ViewBag.expenseName = expenseName;
+            Payment payment = new Payment
+            {
+                MemberId = 1,
+                ExpenseId = expenseId,
+            };
+            return View(payment);
+        }
         public ActionResult AddMessage()
         {
             HomePageViewModel vm = new HomePageViewModel();
@@ -141,7 +171,7 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult AddMessage(Message message)
         {
-            if(message.Story == null)
+            if(message.Story == null || message.Story.Length > 500)
             {
                 return RedirectToAction("AddMessage");
             }
@@ -163,8 +193,6 @@ namespace JacksonShul.Controllers
             mr.DeleteMessage(id);
             return RedirectToAction("DeleteMessage");
         }
-       
-       
 
     }
 }

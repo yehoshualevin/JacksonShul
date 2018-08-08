@@ -140,7 +140,7 @@ namespace JacksonShul.Controllers
         [HttpPost]
         public ActionResult MonthlyPayments(string password)
         {
-            if (password != "MAWV29mp")
+            if (password != "hardpassword")
             {
                 return RedirectToAction("Index", "Home");
             }
